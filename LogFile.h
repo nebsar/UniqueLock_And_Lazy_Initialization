@@ -26,7 +26,8 @@ public:
 
 private:
     /*@brief mutex to sync the threads*/
-    std::mutex m_mutex;
+    std::mutex m_mutex; // used for print messages
+    std::mutex m_open_file; // used for opening file stream
     /* @brief output file stream to write data to file*/
     std::ofstream m_oFstream;
 
