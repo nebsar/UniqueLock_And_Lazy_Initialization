@@ -31,6 +31,8 @@ private:
     /* @brief output file stream to write data to file*/
     std::ofstream m_oFstream;
 
+    std::once_flag m_onceFlag;
+
 };
 
 #endif /* LOGFILE_H */

@@ -19,24 +19,30 @@ LogFile::~LogFile() {
 }
 
 void LogFile::shared_print(const char* msg, int i) {
-    {
+    /*{ 
         std::lock_guard<mutex> lockFile(m_open_file);
         {
             if (!m_oFstream.is_open())
                 m_oFstream.open("UinqueLock.txt");
         }
-    }
+    }*/
+
+    /* we do not need to use above lines if we use std::call_once function */
+    std::call_once(m_onceFlag, [&]() {
+        m_oFstream.open("UinqueLock.txt"); // file will be opened only once by one thread.
+    }); /* we use lambda function as predicate here */
+
     // lock_guard<mutex> locker(m_mutex); // does the same thing with below statement, except std::defer lock
 
     std::unique_lock<mutex> locker(m_mutex, std::defer_lock);
     /* if you use std::defer_lock argument, then you do not lock the mutex, 
      * after writing some other code lines then you can lock the mutex */
 
-    locker.lock();
+    locker.lock(); // since we used defer_lock above, we lock the locker at this line
 
     m_oFstream << "From " << msg << " " << i << endl;
 
-    locker.unlock();
+    locker.unlock(); // we unlock the locker with this line.
 
     // you can lock the mutex again with the below code
     //  locker.lock();
