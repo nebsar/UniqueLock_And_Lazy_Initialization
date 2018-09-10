@@ -32,6 +32,11 @@ int main() {
 
     thread t1(function, ref(logFile));
 
+    for (int i = 0; i < 100; i++) {
+        logFile.shared_print("Main Thread : ", i);
+    }
+
+    t1.join();
 
 
 
