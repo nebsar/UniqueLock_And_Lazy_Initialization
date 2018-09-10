@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   LogFile.cpp
  * Author: Eagleye
@@ -12,6 +6,10 @@
  */
 
 #include "LogFile.h"
+#include <iostream>
+#include <mutex>
+
+using namespace std;
 
 LogFile::LogFile() {
     /* @brief output file stream to write data to file*/
@@ -22,7 +20,7 @@ LogFile::~LogFile() {
     m_oFstream.close();
 }
 
-void LogFile::shared_print(char* msg, int i) {
+void LogFile::shared_print(const char* msg, int i) {
     m_oFstream << "From " << msg << " " << i << endl;
 }
 

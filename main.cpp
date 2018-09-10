@@ -13,13 +13,27 @@
 
 #include <cstdlib>
 
+#include "LogFile.h"
+#include <thread>
+
 using namespace std;
 
 /*
  * 
  */
-int main(int argc, char** argv) {
+void function(LogFile& logf) {
+    for (int i = 0; i>-100; i--)
+        logf.shared_print("T1 Thread : ", i);
+}
 
-    return 0;
+int main() {
+
+    LogFile logFile;
+
+    thread t1(function, ref(logFile));
+
+
+
+
 }
 

@@ -22,7 +22,7 @@ public:
     LogFile();
     virtual ~LogFile();
 
-    void shared_print(char* msg, int i);
+    void shared_print(const char* msg, int i);
 
 private:
     /*@brief mutex to sync the threads*/
